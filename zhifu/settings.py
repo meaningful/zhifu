@@ -137,7 +137,7 @@ STATIC_ROOT = '/home/liujie/static'
 
 MEDIA_URL = '/MediaFile/'
 #MEDIA_ROOT = os.path.join(BASE_DIR , 'Mediafile')
-# 该路径可以被ossfs所代理
+# 该路径可以被ossfs所代理 sfsd
 MEDIA_ROOT = '/home/liujie/Mediafile'
 
 THUMBNAIL_HIGH_RESOLUTION = True
