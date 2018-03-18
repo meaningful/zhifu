@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 import os
-
+from django.conf import settings
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -132,7 +132,11 @@ DATE_FORMAT = 'Y-m-d'
 STATIC_URL = '/static/'
 #STATIC_ROOT = os.path.join(BASE_DIR,'static')
 # 路径可以被nginx 代理
-STATIC_ROOT = '/home/liujie/static'
+STATIC_ROOT = '/home/liujie'
+
+STATICFILES_DIRS = (
+    os.path.join(settings.STATIC_ROOT, 'static/'),
+)
 
 
 MEDIA_URL = '/MediaFile/'
@@ -141,10 +145,17 @@ MEDIA_URL = '/MediaFile/'
 MEDIA_ROOT = '/home/liujie/Mediafile'
 
 THUMBNAIL_HIGH_RESOLUTION = True
+
+
+# 支付宝配置参数
+ALIPAY_APPID = "2016091100489913"
+#ALIPAY_APPID ="2018031502381031"
+ALIPAY_URL = "https://openapi.alipaydev.com/gateway.do"
+
 '''
 
 SUIT_CONFIG = {
-    'ADMIN_NAME': '三草两木',
+    'ADMIN_NAME': 'KMSOFT商品直销',
     'LIST_PER_PAGE': 20,
     'MENU': (
 

@@ -17,7 +17,13 @@ from django.contrib import admin
 from django.conf.urls import include, url
 from django.conf import settings
 from django.conf.urls.static import static
+from . import view
 
 urlpatterns = [
     url('admin/', admin.site.urls),
+    url(r'^$',view.index),
+    url(r"^pay/$", view.pay),
+    url(r"^check_pay/$", view.check_pay),
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+#urlpatterns += static(settings.STATIC_URL , document_root=settings.STATIC_ROOT)
