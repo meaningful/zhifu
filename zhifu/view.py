@@ -57,8 +57,10 @@ def check_pay(request):
         debug=True  # 默认False  配合沙箱模式使用
     )
 
+    count = 1
     while True:
         # 调用alipay工具查询支付结果
+        count+=1
         response = alipay.api_alipay_trade_query(order_id)  # response是一个字典
         # 判断支付结果
         code = response.get("code")  # 支付宝接口调用成功或者错误的标志
@@ -74,6 +76,7 @@ def check_pay(request):
             # 继续查询
             print(code)
             print(trade_status)
+            if count >20:  return JsonResponse({"code": 1, "message": "支付失败"})
             continue
         else:
             # 支付失败
