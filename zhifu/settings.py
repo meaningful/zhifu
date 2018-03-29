@@ -25,8 +25,8 @@ SECRET_KEY = '2oz$8z42&s(igdb^b1y+y-y88gdsem!ni+ct-0x*s2^ib1o+ab'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['localhost','127.0.0.1',]
+SITE_ID = 1
 
 # Application definition
 
@@ -36,10 +36,14 @@ INSTALLED_APPS = [
     'easy_thumbnails',
     'django.contrib.admin',
     'django.contrib.auth',
+    'django.contrib.sites',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_comments',
+    'tagging',
+    'zinnia',
 ]
 
 MIDDLEWARE = [
@@ -65,7 +69,9 @@ TEMPLATES = [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
+                'django.template.context_processors.i18n',
                 'django.contrib.messages.context_processors.messages',
+                'zinnia.context_processors.version',
             ],
         },
     },
@@ -167,3 +173,15 @@ SUIT_CONFIG = {
   }
   
 '''
+ # send e-mail
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'  #email后端
+EMAIL_USE_TLS = False   #是否使用TLS安全传输协议
+EMAIL_USE_SSL = True    #是否使用SSL加密，qq企业邮箱要求使用
+# EMAIL_HOST = 'smtp.exmail.qq.com'   #发送邮件的邮箱 的 SMTP服务器，这里用了qq企业邮箱
+EMAIL_HOST = 'smtp.qq.com'
+EMAIL_PORT = 465     #发件箱的SMTP服务器端口
+EMAIL_HOST_USER = '309685872@qq.com'    #发送邮件的邮箱地址
+EMAIL_HOST_PASSWORD = 'ibjygespxybfcaji'         #发送邮件的邮箱密码 , qq邮箱是自动生成的。
+
+
+DEFAULT_FROM_EMAIL = '309685872@qq.com'

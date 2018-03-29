@@ -20,10 +20,13 @@ from django.conf.urls.static import static
 from . import view
 
 urlpatterns = [
+    url(r'^weblog/', include('zinnia.urls')),
+    url(r'^comments/', include('django_comments.urls')),
+    url(r'^pay/', include('pay.urls')),
+    url(r'^weixin/', include('weixin.urls')),
     url('admin/', admin.site.urls),
     url(r'^$',view.index),
-    url(r"^pay/$", view.pay),
-    url(r"^check_pay/$", view.check_pay),
+    # url(r'\w+',view.anyStatic)
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
-#urlpatterns += static(settings.STATIC_URL , document_root=settings.STATIC_ROOT)
+urlpatterns += static(settings.STATIC_URL , document_root=settings.STATIC_ROOT)

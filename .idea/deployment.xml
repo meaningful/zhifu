@@ -5,7 +5,7 @@
       <paths name="43.97.228.118">
         <serverdata>
           <mappings>
-            <mapping deploy="/RemoteProject" local="$PROJECT_DIR$" web="/" />
+            <mapping deploy="/RemoteProject/zhifu" local="$PROJECT_DIR$" web="/" />
           </mappings>
         </serverdata>
       </paths>
