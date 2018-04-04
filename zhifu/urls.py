@@ -22,10 +22,11 @@ from . import view
 urlpatterns = [
     url(r'^weblog/', include('zinnia.urls')),
     url(r'^comments/', include('django_comments.urls')),
-    url(r'^pay/', include('pay.urls')),
+    # url(r'^pay/', include('pay.urls')),
     url(r'^weixin/', include('weixin.urls')),
     url('admin/', admin.site.urls),
-    url(r'^$',view.index),
+    url(r'^ckeditor/', include('ckeditor_uploader.urls')),
+    # url(r'^$',view.index),
     # url(r'\w+',view.anyStatic)
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

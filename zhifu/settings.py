@@ -34,7 +34,6 @@ INSTALLED_APPS = [
     'filer',
     'suit',
     'easy_thumbnails',
-    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.sites',
     'django.contrib.contenttypes',
@@ -43,7 +42,14 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_comments',
     'tagging',
+    'mptt',
+    'zinnia_bootstrap',
     'zinnia',
+    'ckeditor',
+    'ckeditor_uploader',
+    # 'markdown',
+    'weixin',
+    'django.contrib.admin',
 ]
 
 MIDDLEWARE = [
@@ -63,7 +69,7 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [os.path.join(BASE_DIR, 'templates')]
         ,
-        'APP_DIRS': True,
+        'APP_DIRS': False,
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
@@ -73,9 +79,15 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'zinnia.context_processors.version',
             ],
+            'loaders': [
+               'app_namespace.Loader',
+               'django.template.loaders.filesystem.Loader',
+               'django.template.loaders.app_directories.Loader',
+            ],
         },
     },
 ]
+
 
 WSGI_APPLICATION = 'zhifu.wsgi.application'
 
@@ -138,17 +150,22 @@ DATE_FORMAT = 'Y-m-d'
 STATIC_URL = '/static/'
 #STATIC_ROOT = os.path.join(BASE_DIR,'static')
 # 路径可以被nginx 代理
-STATIC_ROOT = '/home/liujie'
+STATIC_ROOT = '/home/liujie/static'
+CKEDITOR_BASEPATH = "static/ckeditor/ckeditor/"
+# STATICFILES_DIRS = (
+#     os.path.join(settings.STATIC_ROOT, 'static/'),
+# )
 
-STATICFILES_DIRS = (
-    os.path.join(settings.STATIC_ROOT, 'static/'),
-)
-
+# STATICFILES_DIRS = (
+#     '/home/liujie/static',
+# )
 
 MEDIA_URL = '/MediaFile/'
 #MEDIA_ROOT = os.path.join(BASE_DIR , 'Mediafile')
 # 该路径可以被ossfs所代理 sfsd
 MEDIA_ROOT = '/home/liujie/Mediafile'
+
+CKEDITOR_UPLOAD_PATH = "uploads/"
 
 THUMBNAIL_HIGH_RESOLUTION = True
 
@@ -185,3 +202,114 @@ EMAIL_HOST_PASSWORD = 'ibjygespxybfcaji'         #发送邮件的邮箱密码 , 
 
 
 DEFAULT_FROM_EMAIL = '309685872@qq.com'
+CKEDITOR_JQUERY_URL = 'static/js/jquery-1.12.4.min.js'
+
+# # 配置支持： Markdown 语法支持
+# ZINNIA_MARKUP_LANGUAGE = 'markdown'
+# ZINNIA_MARKDOWN_EXTENSIONS = ['markdown.extensions.extra', 'markdown.extensions.codehilite']
+
+CKEDITOR_CONFIGS = {
+    'default1': {
+        'toolbar': 'Full',
+    },
+    'default2': {
+            'toolbar': (
+                ['div','Source','-','Save','NewPage','Preview','-','Templates'],
+                ['Cut','Copy','Paste','PasteText','PasteFromWord','-','Print','SpellChecker','Scayt'],
+                ['Undo','Redo','-','Find','Replace','-','SelectAll','RemoveFormat'],
+                ['Form','Checkbox','Radio','TextField','Textarea','Select','Button', 'ImageButton','HiddenField'],
+                ['Bold','Italic','Underline','Strike','-','Subscript','Superscript'],
+                ['NumberedList','BulletedList','-','Outdent','Indent','Blockquote'],
+                ['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],
+                ['Link','Unlink','Anchor'],
+                ['Image','Flash','Table','HorizontalRule','Smiley','SpecialChar','PageBreak'],
+                ['Styles','Format','Font','FontSize'],
+                ['TextColor','BGColor'],
+                ['Maximize','ShowBlocks','-','About', 'pbckcode'],
+            ),
+        },
+    'zinnia-content_backup': {
+        'toolbar_Zinnia': [
+            ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord'],
+            ['Undo', 'Redo'],
+            ['Scayt'],
+            ['Link', 'Unlink', 'Anchor'],
+            ['Image', 'Table', 'HorizontalRule', 'SpecialChar'],
+            ['Source'],
+            ['Maximize'],
+            '/',
+            ['Bold', 'Italic', 'Underline', 'Strike',
+             'Subscript', 'Superscript', '-', 'RemoveFormat'],
+            ['NumberedList', 'BulletedList', '-',
+             'Outdent', 'Indent', '-', 'Blockquote'],
+            ['Styles', 'Format'],
+        ],
+        'toolbar': 'Zinnia',
+    },
+    'zinnia-content': {
+        'skin': 'moono',
+        # 'skin': 'office2013',
+        'toolbar_Basic': [
+            ['Source', '-', 'Bold', 'Italic']
+        ],
+        'toolbar_YourCustomToolbarConfig': [
+            {'name': 'document', 'items': ['Source', '-', 'Save', 'NewPage', 'Preview', 'Print', '-', 'Templates']},
+            {'name': 'clipboard', 'items': ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo']},
+            {'name': 'editing', 'items': ['Find', 'Replace', '-', 'SelectAll']},
+            {'name': 'forms',
+             'items': ['Form', 'Checkbox', 'Radio', 'TextField', 'Textarea', 'Select', 'Button', 'ImageButton',
+                       'HiddenField']},
+            '/',
+            {'name': 'basicstyles',
+             'items': ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat']},
+            {'name': 'paragraph',
+             'items': ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', 'CreateDiv', '-',
+                       'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-', 'BidiLtr', 'BidiRtl',
+                       'Language']},
+            {'name': 'links', 'items': ['Link', 'Unlink', 'Anchor']},
+            {'name': 'insert',
+             'items': ['Image', 'Flash', 'Table', 'HorizontalRule', 'Smiley', 'SpecialChar', 'PageBreak', 'Iframe']},
+            '/',
+            {'name': 'styles', 'items': ['Styles', 'Format', 'Font', 'FontSize']},
+            {'name': 'colors', 'items': ['TextColor', 'BGColor']},
+            {'name': 'tools', 'items': ['Maximize', 'ShowBlocks']},
+            {'name': 'about', 'items': ['About']},
+            '/',  # put this to force next toolbar on new line
+            {'name': 'yourcustomtools', 'items': [
+                # put the name of your editor.ui.addButton here
+                'Preview',
+                'Maximize',
+
+            ]},
+        ],
+        'toolbar': 'YourCustomToolbarConfig',  # put selected toolbar config here
+        # 'toolbarGroups': [{ 'name': 'document', 'groups': [ 'mode', 'document', 'doctools' ] }],
+         'height': 500,
+         'width': '100%',
+        # 'filebrowserWindowHeight': 725,
+        # 'filebrowserWindowWidth': 940,
+        # 'toolbarCanCollapse': True,
+        # 'mathJaxLib': '//cdn.mathjax.org/mathjax/2.2-latest/MathJax.js?config=TeX-AMS_HTML',
+        'tabSpaces': 4,
+        'extraPlugins': ','.join([
+            'uploadimage',  # the upload image feature
+            # your extra plugins here
+            'div',
+            'autolink',
+            'autoembed',
+            'embedsemantic',
+            'autogrow',
+            # 'devtools',
+            'widget',
+            'lineutils',
+            'clipboard',
+            'dialog',
+            'dialogui',
+            'elementspath'
+        ]),
+    },
+    'awesome_ckeditor': {
+        'toolbar': 'Basic',
+    },
+}
+
