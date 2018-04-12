@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.conf.urls import include, url
 from django.conf import settings
 from django.conf.urls.static import static
+from zinnia.views.archives import EntryIndex
 from . import view
 
 urlpatterns = [
@@ -26,6 +27,7 @@ urlpatterns = [
     url(r'^weixin/', include('weixin.urls')),
     url('admin/', admin.site.urls),
     url(r'^ckeditor/', include('ckeditor_uploader.urls')),
+    url(r'^$', EntryIndex.as_view()),
     # url(r'^$',view.index),
     # url(r'\w+',view.anyStatic)
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

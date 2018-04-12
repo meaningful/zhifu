@@ -7,12 +7,26 @@
           <mappings>
             <mapping deploy="/RemoteProject/zhifu" local="$PROJECT_DIR$" web="/" />
           </mappings>
+          <excludedPaths>
+            <excludedPath local="true" path="$PROJECT_DIR$/uwsgi.ini" />
+            <excludedPath local="true" path="$PROJECT_DIR$/zhifu/urls.py" />
+            <excludedPath path="/RemoteProject/zhifu/zhifu/urls.py" />
+            <excludedPath path="/RemoteProject/zhifu/uwsgi.ini" />
+            <excludedPath path="/RemoteProject/zhifu/zhifu/settings.py" />
+          </excludedPaths>
         </serverdata>
       </paths>
       <paths name="Copy of project-level server '43.97.228.118'">
         <serverdata>
           <mappings>
             <mapping deploy="/" local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="Copy of project-level server '43.97.228.118' (1)">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/RemoteProject/zhifu" local="$PROJECT_DIR$" web="/" />
           </mappings>
         </serverdata>
       </paths>
